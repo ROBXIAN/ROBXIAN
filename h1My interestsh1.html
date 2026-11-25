@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROBXIAN | Explore the Future</title>
+
+<style>
+:root {
+    --bg: #f3f7ff;
+    --text: #172554;
+    --muted: #52617d;
+    --primary: #3459e6;
+    --purple: #813de5;
+    --cyan: #13b8d8;
+    --card: #ffffff;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+    font-family: Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.7;
+}
+header {
+    position:sticky; top:0; z-index:10;
+    background:rgba(255,255,255,.95);
+    backdrop-filter:blur(12px);
+    padding:15px 5%;
+    box-shadow:0 3px 20px #1b3b7015;
+}
+.brand {
+    font-size:27px; font-weight:900;
+    letter-spacing:3px;
+    background:linear-gradient(90deg,var(--primary),var(--purple),var(--cyan));
+    color:transparent;
+    background-clip:text;
+}
+nav {
+    display:flex; flex-wrap:wrap; gap:8px;
+    margin-top:10px;
+}
+nav button {
+    border:0; background:transparent;
+    padding:8px 11px; border-radius:8px;
+    color:#34456c; cursor:pointer;
+    font-weight:bold; font-size:13px;
+}
+nav button:hover, nav button.active {
+    background:#e7edff; color:var(--primary);
+}
+.page {
+    display:none; max-width:1150px;
+    margin:auto; padding:45px 24px;
+    min-height:70vh;
+    animation:appear .35s ease;
+}
+.page.active { display:block; }
+@keyframes appear {
+    from {opacity:0; transform:translateY(10px);}
+    to {opacity:1; transform:translateY(0);}
+}
+.hero {
+    padding:75px 45px; border-radius:25px;
+    color:white;
+    background:linear-gradient(120deg,#3459e6,#813de5,#13b8d8);
+    box-shadow:0 15px 40px #3459e633;
+}
+.hero h1 {font-size:clamp(36px,6vw,65px);line-height:1.15;margin-bottom:20px;}
+.hero p {font-size:18px;max-width:700px;color:white;}
+.hero .btn {background:white;color:#3459e6;}
+h2 {font-size:32px;margin-bottom:18px;color:#294bd0;}
+h3 {margin-bottom:10px;color:#3047a0;}
+p {color:var(--muted);margin-bottom:15px;}
+.btn {
+    display:inline-block; padding:12px 21px;
+    margin-top:12px; border:0; border-radius:9px;
+    background:linear-gradient(90deg,var(--primary),var(--purple));
+    color:white; font-weight:bold; cursor:pointer;
+    text-decoration:none;
+}
+.btn:hover {transform:translateY(-2px);filter:brightness(1.08);}
+.grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:20px; margin:25px 0;
+}
+.card {
+    background:var(--card); border-radius:17px;
+    padding:23px; box-shadow:0 7px 25px #25477c12;
+    border:1px solid #e4eaff;
+    transition:.25s;
+}
+.card:hover {transform:translateY(-6px);box-shadow:0 12px 30px #3459e625;}
+.card img {
+    width:100%; height:165px; object-fit:cover;
+    border-radius:12px; margin-bottom:14px;
+}
+.icon {font-size:38px;margin-bottom:10px;}
+.banner {
+    padding:30px; border-radius:18px;
+    background:linear-gradient(110deg,#e8efff,#f2e9ff);
+    margin:25px 0;
+}
+.gallery img {height:190px;}
+ul {padding-left:24px;color:var(--muted);}
+li {margin:8px 0;}
+.question {
+    background:white; border:1px solid #e3eaff;
+    padding:22px; margin:18px 0; border-radius:14px;
+}
+.option {
+    display:block; width:100%; text-align:left;
+    padding:12px; margin:8px 0;
+    border:1px solid #dce5ff; border-radius:9px;
+    background:#f7f9ff; cursor:pointer; color:#26385f;
+}
+.option:hover {background:#e8edff;border-color:#7189f5;}
+.option:disabled {cursor:default;opacity:1;}
+.correct {background:#d8f8e6!important;border-color:#36b978!important;}
+.wrong {background:#ffe2e2!important;border-color:#ed7777!important;}
+#result {font-size:20px;font-weight:bold;margin-top:20px;}
+footer {
+    text-align:center; padding:30px;
+    background:#172554; color:white; margin-top:35px;
+}
+footer p {color:#d7e3ff;}
+@media(max-width:600px) {
+    header {padding:13px 4%;}
+    nav {gap:3px;}
+    nav button {font-size:11px;padding:7px;}
+    .page {padding:30px 16px;}
+    .hero {padding:45px 23px;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand">✦ ROBXIAN</div>
+    <nav id="navigation">
+        <button class="active" data-page="home">Home</button>
+        <button data-page="about">About</button>
+        <button data-page="history">History</button>
+        <button data-page="types">Types</button>
+        <button data-page="industrial">Industrial</button>
+        <button data-page="medical">Medical</button>
+        <button data-page="space">Space</button>
+        <button data-page="ai">Artificial Intelligence</button>
+        <button data-page="future">Future</button>
+        <button data-page="quiz">Quiz</button>
+    </nav>
+</header>
+
+<!-- PAGE 1: HOME -->
+<section class="page active" id="home">
+    <div class="hero">
+        <h1>THE FUTURE IS<br>BUILT BY ROBOTS.</h1>
+        <p>Discover the extraordinary world of robotics, intelligent machines and technological innovation. Your journey into tomorrow starts here.</p>
+        <button class="btn" onclick="showPage('about')">Explore the World →</button>
+    </div>
+    <div class="grid">
+        <div class="card"><div class="icon">🤖</div><h3>Smart Machines</h3><p>Discover machines that can perform tasks and solve problems.</p></div>
+        <div class="card"><div class="icon">🧠</div><h3>Artificial Intelligence</h3><p>Explore how computers can learn from information.</p></div>
+        <div class="card"><div class="icon">🚀</div><h3>Space Exploration</h3><p>See how robotic technology helps us explore space.</p></div>
+    </div>
+    <div class="banner"><h2>Innovation has no limits.</h2><p>Robotics combines engineering, science and computing to create machines that help people in everyday life.</p></div>
+</section>
+
+<!-- PAGE 2: ABOUT -->
+<section class="page" id="about">
+    <h2>About Robotics</h2>
+    <p>Robotics is a field of technology concerned with designing, building, programming and operating robots.</p>
+    <div class="grid">
+        <div class="card"><div class="icon">⚙️</div><h3>Engineering</h3><p>Engineers design the physical structure and moving parts of robots.</p></div>
+        <div class="card"><div class="icon">💻</div><h3>Programming</h3><p>Computer programs give robots instructions to follow.</p></div>
+        <div class="card"><div class="icon">📡</div><h3>Sensors</h3><p>Sensors help robots detect information about their surroundings.</p></div>
+    </div>
+    <div class="banner"><h3>Why is robotics important?</h3><p>Robots can perform repetitive tasks, assist people, work in difficult environments and improve accuracy in many industries.</p></div>
+</section>
+
+<!-- PAGE 3: HISTORY -->
+<section class="page" id="history">
+    <h2>The History of Robots</h2>
+    <p>Robotics developed over many centuries, from early mechanical inventions to modern intelligent machines.</p>
+    <div class="grid">
+        <div class="card"><h3>Ancient Times</h3><p>Inventors created mechanical devices that could perform simple movements.</p></div>
+        <div class="card"><h3>1920</h3><p>The word "robot" became popular through the play R.U.R. by Karel Čapek.</p></div>
+        <div class="card"><h3>1950s</h3><p>George Devol developed an early programmable industrial robot.</p></div>
+        <div class="card"><h3>Today</h3><p>Robots are used in factories, hospitals, homes, research and space exploration.</p></div>
+    </div>
+    <div class="banner"><h3>A remarkable journey</h3><p>Robotics continues to develop as engineers create more capable and useful machines.</p></div>
+</section>
+
+<!-- PAGE 4: TYPES -->
+<section class="page" id="types">
+    <h2>Types of Robots</h2>
+    <p>Robots come in many shapes and sizes. Each type is designed for different tasks.</p>
+    <div class="grid">
+        <div class="card"><div class="icon">🏭</div><h3>Industrial Robots</h3><p>Used in factories for manufacturing and assembly.</p></div>
+        <div class="card"><div class="icon">🏥</div><h3>Medical Robots</h3><p>Assist medical professionals with certain procedures and tasks.</p></div>
+        <div class="card"><div class="icon">🚀</div><h3>Space Robots</h3><p>Explore planets and collect scientific information.</p></div>
+        <div class="card"><div class="icon">🏠</div><h3>Domestic Robots</h3><p>Help with household activities such as cleaning.</p></div>
+        <div class="card"><div class="icon">🐕</div><h3>Humanoid Robots</h3><p>Designed with features or movements resembling humans.</p></div>
+        <div class="card"><div class="icon">🌊</div><h3>Underwater Robots</h3><p>Explore underwater environments and collect data.</p></div>
+    </div>
+</section>
+
+<!-- PAGE 5: INDUSTRIAL -->
+<section class="page" id="industrial">
+    <h2>Industrial Robotics</h2>
+    <p>Industrial robots are machines used in manufacturing facilities to perform tasks with speed, consistency and precision.</p>
+    <div class="grid">
+        <div class="card"><div class="icon">🚗</div><h3>Car Manufacturing</h3><p>Robotic arms help assemble vehicles and move components.</p></div>
+        <div class="card"><div class="icon">📦</div><h3>Packaging</h3><p>Robots sort, pack and organise products.</p></div>
+        <div class="card"><div class="icon">🔧</div><h3>Assembly</h3><p>Machines help put together products in factories.</p></div>
+    </div>
+    <div class="banner"><h3>Did you know?</h3><p>Some industrial robots can repeat the same programmed movement thousands of times.</p></div>
+</section>
+
+<!-- PAGE 6: MEDICAL -->
+<section class="page" id="medical">
+    <h2>Medical Robots</h2>
+    <p>Medical robotics supports healthcare professionals in selected medical procedures, rehabilitation and hospital services.</p>
+    <div class="grid">
+        <div class="card"><div class="icon">🩺</div><h3>Surgical Assistance</h3><p>Some robotic systems help trained surgeons control specialised instruments.</p></div>
+        <div class="card"><div class="icon">🦾</div><h3>Rehabilitation</h3><p>Robotic devices can support physical rehabilitation exercises.</p></div>
+        <div class="card"><div class="icon">💊</div><h3>Hospital Services</h3><p>Robots can help transport supplies and medicines in hospitals.</p></div>
+    </div>
+    <div class="banner"><h3>People remain essential.</h3><p>Medical robots are tools. Healthcare professionals make important decisions and supervise patient care.</p></div>
+</section>
+
+<!-- PAGE 7: SPACE -->
+<section class="page" id="space">
+    <h2>Robots in Space</h2>
+    <p>Space robots help scientists investigate places that are difficult or dangerous for humans to reach.</p>
+    <div class="grid">
+        <div class="card"><div class="icon">🔴</div><h3>Mars Rovers</h3><p>Robotic vehicles explore the surface of Mars and study rocks and soil.</p></div>
+        <div class="card"><div class="icon">🛰️</div><h3>Satellites</h3><p>Robotic spacecraft collect information about Earth and space.</p></div>
+        <div class="card"><div class="icon">🌕</div><h3>Lunar Exploration</h3><p>Robotic missions help scientists study the Moon.</p></div>
+    </div>
+    <div class="banner"><h3>Famous example: Perseverance</h3><p>NASA's Perseverance rover landed on Mars in February 2021 to explore the planet and investigate its ancient environment.</p></div>
+</section>
+
+<!-- PAGE 8: AI -->
+<section class="page" id="ai">
+    <h2>Artificial Intelligence</h2>
+    <p>Artificial Intelligence (AI) is a branch of computing that develops systems able to perform tasks that normally require human-like abilities, such as recognising patterns and understanding language.</p>
+    <div class="grid">
+        <div class="card"><div class="icon">🧠</div><h3>Machine Learning</h3><p>Computers learn patterns from data to make predictions or decisions.</p></div>
+        <div class="card"><div class="icon">💬</div><h3>Language Systems</h3><p>AI can process and generate human language.</p></div>
+        <div class="card"><div class="icon">👁️</div><h3>Computer Vision</h3><p>AI systems can analyse images and identify objects.</p></div>
+    </div>
+    <div class="banner"><h3>AI and Robotics</h3><p>AI can help some robots understand information and respond to their surroundings. Not every robot uses AI.</p></div>
+</section>
+
+<!-- PAGE 9: FUTURE -->
+<section class="page" id="future">
+    <h2>The Future of Robotics</h2>
+    <p>Robotics may play an even greater role in the future as technology improves.</p>
+    <div class="grid">
+        <div class="card"><div class="icon">🏡</div><h3>Smart Homes</h3><p>Robots may assist with more everyday household activities.</p></div>
+        <div class="card"><div class="icon">🌱</div><h3>Agriculture</h3><p>Robots can help monitor crops and support farming tasks.</p></div>
+        <div class="card"><div class="icon">🌍</div><h3>Environment</h3><p>Robotic systems may help scientists monitor ecosystems.</p></div>
+        <div class="card"><div class="icon">🧑‍🚀</div><h3>Space Missions</h3><p>Robots may support future exploration missions.</p></div>
+    </div>
+    <div class="banner"><h3>The human role</h3><p>People will continue to be important in designing, supervising and deciding how technology should be used responsibly.</p></div>
+</section>
+
+<!-- PAGE 10: QUIZ -->
+<section class="page" id="quiz">
+    <h2>NOW LET'S TEST YOUR KNOWLEDGE!</h2>
+    <p>Challenge yourself with 10 questions about robotics. Choose one answer for each question.</p>
+    <div id="quizArea"></div>
+    <button class="btn" id="submitQuiz" onclick="finishQuiz()">Submit Answers</button>
+    <div id="result"></div>
+    <button class="btn" onclick="startQuiz()">Restart Quiz</button>
+</section>
+
+<footer>
+    <h3>✦ ROBXIAN</h3>
+    <p>Exploring Technology. Discovering Possibilities.</p>
+    <p>© 2026 ROBXIAN | Educational Website</p>
+</footer>
+
+<script>
+const pages = [...document.querySelectorAll(".page")];
+const navButtons = [...document.querySelectorAll("nav button")];
+
+function showPage(id) {
+    pages.forEach(page => page.classList.toggle("active", page.id === id));
+    navButtons.forEach(button =>
+        button.classList.toggle("active", button.dataset.page === id)
+    );
+    window.scrollTo({top:0, behavior:"smooth"});
+    if(id === "quiz" && !quizStarted) startQuiz();
+}
+
+navButtons.forEach(button => {
+    button.addEventListener("click", () => showPage(button.dataset.page));
+});
+
+const questions = [
+    {q:"What is robotics?",a:["Study of plants","Design and use of robots","Study of oceans","Study of stars"],c:1},
+    {q:"Who made the word robot popular in 1920?",a:["Isaac Newton","Karel Čapek","Albert Einstein","Charles Darwin"],c:1},
+    {q:"Where are industrial robots commonly used?",a:["Factories","Libraries only","Beaches only","Gardens only"],c:0},
+    {q:"Which robot explores Mars?",a:["Vacuum robot","Mars rover","Industrial arm","Delivery robot"],c:1},
+    {q:"What does AI stand for?",a:["Automatic Internet","Artificial Intelligence","Advanced Industry","Applied Information"],c:1},
+    {q:"What helps robots detect their surroundings?",a:["Sensors","Paint","Paper","Wheels only"],c:0},
+    {q:"Which robot can help with household cleaning?",a:["Space rover","Domestic robot","Underwater robot","Surgical robot"],c:1},
+    {q:"What is a common use of medical robots?",a:["Weather forecasting","Supporting selected medical procedures","Building roads","Exploring oceans"],c:1},
+    {q:"Do all robots use artificial intelligence?",a:["Yes","No"],c:1},
+    {q:"Who is important in supervising medical robots?",a:["Nobody","Trained healthcare professionals","Only machines","Visitors"],c:1}
+];
+
+let answers = {};
+let quizStarted = false;
+
+function startQuiz() {
+    quizStarted = true;
+    answers = {};
+    document.getElementById("result").textContent = "";
+    document.getElementById("submitQuiz").style.display = "inline-block";
+    const area = document.getElementById("quizArea");
+    area.innerHTML = "";
+
+    questions.forEach((question,index) => {
+        const card = document.createElement("div");
+        card.className = "question";
+        card.innerHTML = `<h3>${index+1}. ${question.q}</h3>`;
+        question.a.forEach((option,i) => {
+            const button = document.createElement("button");
+            button.className = "option";
+            button.textContent = String.fromCharCode(65+i) + ". " + option;
+            button.onclick = () => {
+                answers[index] = i;
+                card.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+                button.style.borderColor = "#3459e6";
+                button.style.background = "#e4ebff";
+            };
+            card.appendChild(button);
+        });
+        area.appendChild(card);
+    });
+}
+
+function finishQuiz() {
+    if(Object.keys(answers).length !== questions.length) {
+        document.getElementById("result").textContent =
+            "Please answer all 10 questions first!";
+        return;
+    }
+
+    let score = 0;
+    questions.forEach((q,i) => {
+        const card = document.querySelectorAll(".question")[i];
+        const buttons = card.querySelectorAll(".option");
+        buttons.forEach((button,j) => {
+            button.disabled = true;
+            if(j === q.c) button.classList.add("correct");
+            else if(j === answers[i]) button.classList.add("wrong");
+        });
+        if(answers[i] === q.c) score++;
+    });
+
+    document.getElementById("result").textContent =
+        `Your score: ${score}/10 — ${
+            score === 10 ? "Outstanding! Perfect score! 🏆" :
+            score >= 7 ? "Excellent work! 🌟" :
+            score >= 5 ? "Good effort! Keep learning! 👍" :
+            "Keep practising. You can improve! 📚"
+        }`;
+
+    document.getElementById("submitQuiz").style.display = "none";
+}
+
+startQuiz();
+</script>
+
+</body>
+</html>
