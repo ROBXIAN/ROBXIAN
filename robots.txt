@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://robxian.github.io/ROBXIAN/sitemap.xml
